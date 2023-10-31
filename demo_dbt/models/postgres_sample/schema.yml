@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: DBT_model
+    columns:
+      -  name: customer_id
+      -  name: order_id
+      -  name: product_id 
+      
+      
