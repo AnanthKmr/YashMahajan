@@ -30,11 +30,8 @@ using_clause AS (
     {% endif %}
  
  
- 
 ),
- 
- 
- 
+  
 updates AS (
  
  
