@@ -11,8 +11,8 @@
 
     {% set results = run_query (query) %}
     {% if execute %}
-    {% set result1 = results.columns[0].values()[0] %}
+        {% set result1 = results.columns[0].values()[0] %}
     {% endif %}
-    {{return (results1)}}
+    {{return (result1)}}
 
 {% endmacro %}      

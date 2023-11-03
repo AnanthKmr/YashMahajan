@@ -1,6 +1,6 @@
 
 
-with macro as(
+with macrocte as(
     select 
     *
     from {{ref ('source_insert1')}}
@@ -8,6 +8,6 @@ with macro as(
 )
 
 
-select * from macro
+select * from macrocte
 
   

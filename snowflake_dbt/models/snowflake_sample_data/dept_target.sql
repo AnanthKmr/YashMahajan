@@ -2,14 +2,14 @@
 
 
 
+
 {{
     config(
         materialized='incremental',
-        unique_key='customer_id',
+        unique_key='empid',
         incremental_strategy='merge'
     )
 }}
-
 
 
 WITH
@@ -18,11 +18,13 @@ using_clause AS (
  
  
     SELECT
-        CUSTOMER_ID,
-	    ORDER_ID,
-	    PRODUCT_ID,
-        src_updated_datetime
-    FROM {{ ref('source_sales')}}
+       deptid,
+       deptname,
+       empid,
+       empname,
+       sal,
+       current_timestamp() as src_updated_datetime
+    FROM {{ ref('join')}}
    
     {% if is_incremental() %}
  
@@ -40,10 +42,12 @@ updates AS (
  
  
     SELECT
-        CUSTOMER_ID,
-	    ORDER_ID,
-	    PRODUCT_ID,
-        current_timestamp() as src_updated_datetime
+       deptid,
+       deptname,
+       empid,
+       empname,
+       sal,
+       current_timestamp() as src_updated_datetime
     from using_clause
  
  
@@ -52,7 +56,7 @@ updates AS (
  
  
  
-        WHERE CUSTOMER_ID IN (SELECT CUSTOMER_ID FROM {{ this }})
+        WHERE empid IN (SELECT empid FROM {{ this }})
  
  
  
@@ -67,20 +71,17 @@ updates AS (
 inserts AS (
  
     SELECT
-        CUSTOMER_ID,
-	    ORDER_ID,
-	    PRODUCT_ID,
+       deptid,
+       deptname,
+       empid,
+       empname,
+       sal,
         current_timestamp() as src_updated_datetime
     from using_clause
  
  
- 
-    WHERE CUSTOMER_ID NOT IN (SELECT CUSTOMER_ID FROM updates)
- 
- 
- 
+    WHERE empid NOT IN (SELECT empid FROM updates) 
 )
- 
- 
+
  
 SELECT * FROM updates UNION SELECT * FROM inserts
