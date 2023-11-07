@@ -8,6 +8,4 @@ with macrocte as(
 )
 
 
-select * from macrocte
-
   

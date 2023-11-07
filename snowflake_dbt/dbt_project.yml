@@ -30,13 +30,13 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 
 #on-run-start: "insert into audits(type) values ('start'); commit"
-on-run-start: "{{ insert_audits('macro') }}"
-on-run-end: "insert into audits(type) values ('end'); commit"
+# on-run-start: "{{ insert_audits('macro') }}"
+# on-run-end: "insert into audits(type) values ('end'); commit"
 
 
 models:
-  pre-hook: "insert into audits(type) values ('pre'); commit"
-  post-hook: "insert into audits(type) values ('post'); commit"
+  # pre-hook: "insert into audits(type) values ('pre'); commit"
+  # post-hook: "insert into audits(type) values ('post'); commit"
   snowflake_dbt:
     # Config indicated by + and applies to all files under models/example/
     snowflake_sample_data:
