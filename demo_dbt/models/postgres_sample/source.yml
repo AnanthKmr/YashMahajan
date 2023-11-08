@@ -1,0 +1,9 @@
+version: 2
+ 
+sources:
+  - name: DBT_sample_source
+    database: postgres 
+    schema: postgres 
+    tables:
+      - name: sales
+        
