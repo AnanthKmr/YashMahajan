@@ -1,11 +1,8 @@
 {{ config(materialized='table') }} 
 
-WITH random_data AS (
-    SELECT
-        i AS id
 
-    FROM generate_series(1, 100) AS s(i)
-)
-
-SELECT * FROM random_data
-
+SELECT
+    s as id,
+     floor(random() * 100 + 1)::int as random_integer,
+    md5(random()::text) as random_string
+FROM generate_series(1,100) s

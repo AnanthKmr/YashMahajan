@@ -6,6 +6,9 @@ name: 'demo_dbt'
 version: '1.0.0'
 config-version: 2
 
+vars:
+    count1 : 'true'
+
 # This setting configures which "profile" dbt uses for this project.
 profile: 'demo_dbt'
 
