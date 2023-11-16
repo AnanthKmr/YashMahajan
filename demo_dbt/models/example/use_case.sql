@@ -8,26 +8,38 @@ with firsttable as(
 select 
     * 
     from 
-    {{ref ('stage_1')}} 
+    {{ref ('target_merge')}} 
 where 
-    (select count(id) from {{ref ('stage_1')}}) > 1000
+    (select count(emp_id) from {{ref ('stream')}}) > 2
 ),
 secondtable as(
 select 
     * 
     from 
-    {{ref ('stage_2')}} 
+    {{ref ('target_append')}} 
 where 
-    (select count(id) from {{ref ('stage_2')}}) > 1000
-)
+    (select count(emp_id) from {{ref ('stream')}}) <= 2
+),
 
+ 
 
-select 
+union_tables as(  
+select
     * 
     from
     firsttable 
-    union 
+ union all 
 select 
     * 
     from
-    secondtable     
+    secondtable  )
+
+select 
+    t.* 
+  FROM {{ this }} t
+  left join
+  union_tables  u  
+  on t.emp_id = u.emp_id 
+
+
+      

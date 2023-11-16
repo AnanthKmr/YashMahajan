@@ -2,7 +2,7 @@
 {{
     config(
         materialized='incremental',
-        
+        unique_key='emp_id',
         incremental_strategy='merge'
     )
 }}

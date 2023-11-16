@@ -4,15 +4,16 @@
  )
 }}
 
-
 --depends_on: {{ref ('src_emp')}},{{ref ('str_merge')}}
+
+
 
 SELECT
 *
 FROM
 
 {% if var('count1') == 'false' %}
-   {{ ref('src_emp') }}    accounts
+        insert into postgres.emp values(17,'k234k',000009,CURRENT_TIMESTAMP);
 {% else %}
-       {{ ref('str_merge') }}   accounts
+       insert into postgres.emp values(17,'k234k',000009,CURRENT_TIMESTAMP);
 {% endif %}
