@@ -2,7 +2,7 @@
 {{
     config(
         materialized='incremental',
-        unique_key='emp_id',
+        
         incremental_strategy='merge'
     )
 }}
@@ -17,7 +17,7 @@ using_clause AS (
         emp_id,
         emp_name,
         sal,
-        src_updated_datetime
+        current_timestamp as src_updated_datetime
     FROM {{ ref ('stream')}}
    
  
@@ -27,7 +27,8 @@ using_clause AS (
     {% if is_incremental() %}
  
  
-        WHERE (select count(emp_id) from {{ref ('stream')}}) > 2
+        WHERE (select count(emp_id) from {{ref ('stream')}}) <= 2
+ 
  
  
     {% endif %}
@@ -46,8 +47,7 @@ updates AS (
         emp_id,
         emp_name,
         sal,
-        src_updated_datetime,
-        current_timestamp as trg_updated_datetime
+        current_timestamp as src_updated_datetime
     FROM using_clause
  
  
@@ -76,8 +76,7 @@ inserts AS (
         emp_id,
         emp_name,
         sal,
-        src_updated_datetime,
-        current_timestamp as trg_updated_datetime
+        current_timestamp as src_updated_datetime
     FROM using_clause
  
  

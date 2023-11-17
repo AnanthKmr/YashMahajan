@@ -1,22 +1,24 @@
+
 {{ 
     config(
         materialized ='table'
     )
 }}
 
-with 
-
+ 
+with
 union_tables as(  
 select
     * 
     from
-    {{ref ('target_merge')}} 
+    {{ref ('target_append1')}}
     
- union all
+ union 
 select 
     * 
     from
-    {{ref ('target_append')}}  ),
+    {{ref ('target_merge1')}} 
+    ),
 
 
 unionfirsttable as(
@@ -35,8 +37,8 @@ select
     join 
     union_tables u 
     on 
-    t.emp_id <> u.emp_id 
-
+    t.emp_id = u.emp_id 
+    or t.emp_id <> u.emp_id
     
 )
 
@@ -45,7 +47,7 @@ select
     from
     unionfirsttable 
     
- union all
+ union all 
 select 
     * 
     from

@@ -27,7 +27,8 @@ using_clause AS (
     {% if is_incremental() %}
  
  
-        WHERE (select count(emp_id) from {{ref ('stream')}}) > 2
+        WHERE 
+        (select count(emp_id) from {{ref ('stream')}}) > 2
  
  
     {% endif %}

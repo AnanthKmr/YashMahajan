@@ -17,7 +17,7 @@ using_clause AS (
         emp_id,
         emp_name,
         sal,
-        current_timestamp as src_updated_datetime
+        src_updated_datetime
     FROM {{ ref ('src_emp')}}
    
  
@@ -46,7 +46,8 @@ updates AS (
         emp_id,
         emp_name,
         sal,
-        current_timestamp as src_updated_datetime
+        src_updated_datetime,
+        current_timestamp as trg_updated_datetime
     FROM using_clause
  
  
@@ -75,7 +76,8 @@ inserts AS (
         emp_id,
         emp_name,
         sal,
-        current_timestamp as src_updated_datetime
+        src_updated_datetime,
+        current_timestamp as trg_updated_datetime
     FROM using_clause
  
  

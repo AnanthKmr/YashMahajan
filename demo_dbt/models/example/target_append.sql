@@ -18,7 +18,7 @@ using_clause AS (
         emp_name,
         sal,
         current_timestamp as src_updated_datetime
-    FROM {{ ref ('src_emp')}}
+    FROM {{ ref ('stream')}}
    
  
  
@@ -27,7 +27,8 @@ using_clause AS (
     {% if is_incremental() %}
  
  
-        WHERE src_updated_datetime > (SELECT COALESCE(max(src_updated_datetime),'1900-01-01'::TIMESTAMP) FROM {{ this }})
+        WHERE (select count(emp_id) from {{ref ('stream')}}) <= 2
+    
  
  
     {% endif %}
