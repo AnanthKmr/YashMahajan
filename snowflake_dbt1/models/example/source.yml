@@ -1,0 +1,20 @@
+
+
+version: 2
+
+sources:
+  - name: student_s
+    database: demo_database 
+    schema: demo_schema 
+    tables:
+      - name: student
+      - name : bank_stream
+      - name : target_dp
+
+      - name : bank 
+
+      - name : emp
+
+
+      
+      
