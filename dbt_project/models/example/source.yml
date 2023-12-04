@@ -1,0 +1,9 @@
+version: 2
+ 
+sources:
+  - name: snowflake_news_api
+    database: Airbyte_destination 
+    schema: Airbyte_schema
+    tables:
+
+      - name : everything

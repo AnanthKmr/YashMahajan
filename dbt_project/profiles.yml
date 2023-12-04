@@ -1,0 +1,13 @@
+dbt_project:
+  outputs:
+    dev:
+      account: qehwfog-er54393
+      database: Airbyte_destination
+      password: Digital@2023
+      role: sysadmin
+      schema: Airbyte_schema
+      threads: 10
+      type: snowflake
+      user: Tejasc834
+      warehouse: Airbyte_warehouse
+  target: dev
